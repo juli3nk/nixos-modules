@@ -1,0 +1,16 @@
+# Build results
+result
+result-*
+
+# Secrets (IMPORTANT!)
+secrets/**
+!secrets/.gitkeep
+
+# Hardware configs avec infos sensibles
+# hosts/*/hardware.nix  # Décommenter si contient des UUIDs sensibles
+
+# Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
