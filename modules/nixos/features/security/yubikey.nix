@@ -28,7 +28,6 @@ in
       yubikey-personalization
       yubikey-touch-detector
     ] ++ lib.optionals cfg.enableGUI [
-      yubikey-personalization-gui
       yubioath-flutter
     ];
 

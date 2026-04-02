@@ -19,8 +19,8 @@ in
       git              # Distributed version control system
       pwgen            # Automatic password generation tool
     ] ++ lib.optionals cfg.includeGitExtras [
-      gitAndTools.git-extras  # Additional git utilities
-      git-lfs                 # Git Large File Storage
+      git-extras  # Additional git utilities
+      git-lfs     # Git Large File Storage
     ];
   };
 }

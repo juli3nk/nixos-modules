@@ -48,12 +48,6 @@ in
         description = "Run QEMU as root (less secure)";
       };
 
-      enableOVMF = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Enable UEFI support (OVMF)";
-      };
-
       enableTPM = lib.mkOption {
         type = lib.types.bool;
         default = true;
@@ -134,7 +128,6 @@ in
         qemu = {
           package = cfg.server.qemuPackage;
           runAsRoot = cfg.server.runAsRoot;
-          ovmf.enable = cfg.server.enableOVMF;
           swtpm.enable = cfg.server.enableTPM;
 
           verbatimConfig = ''

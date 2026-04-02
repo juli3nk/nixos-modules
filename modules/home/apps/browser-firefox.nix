@@ -8,7 +8,7 @@
   programs = {
     firefox = {
       enable = true;
-      package = pkgs.firefox-wayland; # firefox with wayland support
+      package = pkgs.firefox;
       enableGnomeExtensions = false;
       policies = {
         DisableTelemetry = true;

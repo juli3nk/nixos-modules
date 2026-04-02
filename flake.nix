@@ -2,11 +2,11 @@
   description = "My NixOS modules";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -47,7 +47,6 @@
         gtk-apps = ./modules/home/wm/gtk-apps.nix;
         gtk = ./modules/home/wm/gtk.nix;
         qt-apps = ./modules/home/wm/qt-apps.nix;
-        qt = ./modules/home/wm/qt.nix;
         wayland = ./modules/home/wm/wayland.nix;
       };
 

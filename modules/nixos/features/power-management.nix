@@ -422,16 +422,15 @@ in
         ])
       ];
 
-      services.logind.extraConfig = ''
-        HandleLidSwitch=suspend-then-hibernate
-        HandleLidSwitchExternalPower=suspend
-        IdleAction=suspend-then-hibernate
-        IdleActionSec=${cfg.idleTimeout}
-        ${lib.optionalString cfg.enableOnPowerButton ''
-          HandlePowerKey=suspend-then-hibernate
-          HandlePowerKeyLongPress=poweroff
-        ''}
-      '';
+      services.logind.settings.Login = {
+        HandleLidSwitch = "suspend-then-hibernate";
+        HandleLidSwitchExternalPower = "suspend";
+        IdleAction = "suspend-then-hibernate";
+        IdleActionSec = cfg.idleTimeout;
+      } // lib.optionalAttrs cfg.enableOnPowerButton {
+        HandlePowerKey = "suspend-then-hibernate";
+        HandlePowerKeyLongPress = "poweroff";
+      };
 
       systemd.sleep.extraConfig = ''
         HibernateDelaySec=${cfg.hibernateDelay}
