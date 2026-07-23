@@ -2,11 +2,11 @@
   description = "My NixOS modules";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -24,15 +24,14 @@
         "3dprinting" = ./modules/home/apps/3dprinting.nix;
         alacritty = ./modules/home/apps/alacritty.nix;
         audio = ./modules/home/apps/audio.nix;
-        browser-brave = ./modules/home/apps/browser-brave.nix;
-        browser-chromium = ./modules/home/apps/browser-chromium.nix;
-        browser-firefox = ./modules/home/apps/browser-firefox.nix;
+        browserChromium = ./modules/home/apps/browser-chromium.nix;
+        browserFirefox = ./modules/home/apps/browser-firefox.nix;
         images = ./modules/home/apps/images.nix;
         kitty = ./modules/home/apps/kitty.nix;
         kodi = ./modules/home/apps/kodi.nix;
         office = ./modules/home/apps/office.nix;
-        password-manager = ./modules/home/apps/password-manager.nix;
-        protonvpn = ./modules/home/apps/protonvpn.nix;
+        passwordManager = ./modules/home/apps/password-manager.nix;
+        proton = ./modules/home/apps/proton.nix;
         rustdesk = ./modules/home/apps/rustdesk.nix;
         veracrypt = ./modules/home/apps/veracrypt.nix;
         video = ./modules/home/apps/video.nix;
@@ -44,19 +43,23 @@
             notification = ./modules/home/wm/sway/notification.nix;
         };
 
-        gtk-apps = ./modules/home/wm/gtk-apps.nix;
+        gtkApps = ./modules/home/wm/gtk-apps.nix;
         gtk = ./modules/home/wm/gtk.nix;
-        qt-apps = ./modules/home/wm/qt-apps.nix;
+        qtApps = ./modules/home/wm/qt-apps.nix;
+
         wayland = ./modules/home/wm/wayland.nix;
       };
 
       dev = ./modules/home/dev.nix;
       sound = ./modules/home/sound.nix;
+      xdg = ./modules/home/xdg.nix;
     };
 
     nixosModules = {
       core = {
         bootloader = ./modules/nixos/core/bootloader.nix;
+        console = ./modules/nixos/core/console.nix;
+        filesystem = ./modules/nixos/core/filesystem.nix;
         locale = ./modules/nixos/core/locale.nix;
         maintenance = ./modules/nixos/core/maintenance.nix;
         nix = ./modules/nixos/core/nix.nix;
@@ -73,6 +76,8 @@
           };
 
           appimage = ./modules/nixos/features/desktop/appimage.nix;
+          dbus = ./modules/nixos/features/desktop/dbus.nix;
+          secrets = ./modules/nixos/features/desktop/secrets.nix;
           thunar = ./modules/nixos/features/desktop/thunar.nix;
           xdg = ./modules/nixos/features/desktop/xdg.nix;
         };
@@ -91,10 +96,10 @@
           hardware = ./modules/nixos/features/packages/hardware.nix;
           monitoring = ./modules/nixos/features/packages/monitoring.nix;
           networking = ./modules/nixos/features/packages/networking.nix;
-          nix-tools = ./modules/nixos/features/packages/nix-tools.nix;
+          nixTools = ./modules/nixos/features/packages/nix-tools.nix;
           shell = ./modules/nixos/features/packages/shell.nix;
-          system-info = ./modules/nixos/features/packages/system-info.nix;
-          text-processing = ./modules/nixos/features/packages/text-processing.nix;
+          systemInfo = ./modules/nixos/features/packages/system-info.nix;
+          textProcessing = ./modules/nixos/features/packages/text-processing.nix;
           utilities = ./modules/nixos/features/packages/utilities.nix;
         };
 
@@ -105,26 +110,25 @@
 
           luks = {
             basic = ./modules/nixos/features/security/luks/basic.nix;
-            remote-unlock = ./modules/nixos/features/security/luks/remote-unlock.nix;
+            remoteUnlock = ./modules/nixos/features/security/luks/remote-unlock.nix;
           };
 
           audit = ./modules/nixos/features/security/audit.nix;
           baseline = ./modules/nixos/features/security/baseline.nix;
+          certificates = ./modules/nixos/features/security/certificates.nix;
           gpg = ./modules/nixos/features/security/gpg.nix;
           hardened = ./modules/nixos/features/security/hardened.nix;
-          pki-certificates = ./modules/nixos/features/security/pki-certificates.nix;
-          secrets = ./modules/nixos/features/security/secrets.nix;
-          secureboot = ./modules/nixos/features/security/secureboot.nix;
-          sudo-nopasswd = ./modules/nixos/features/security/sudo-nopasswd.nix;
+          secureBoot = ./modules/nixos/features/security/secureboot.nix;
+          sudoNopasswd = ./modules/nixos/features/security/sudo-nopasswd.nix;
           yubikey = ./modules/nixos/features/security/yubikey.nix;
         };
 
         system = {
-          auto-upgrade = ./modules/nixos/features/system/auto-upgrade.nix;
-          cross-compilation = ./modules/nixos/features/system/cross-compilation.nix;
-          filesystem = ./modules/nixos/features/system/filesystem.nix;
-          ipv6-disable = ./modules/nixos/features/system/ipv6-disable.nix;
-          iso-builder = ./modules/nixos/features/system/iso-builder.nix;
+          autoUpgrade = ./modules/nixos/features/system/auto-upgrade.nix;
+          crossCompilation = ./modules/nixos/features/system/cross-compilation.nix;
+          filesystemExtra = ./modules/nixos/features/system/filesystem-extra.nix;
+          ipv6Disable = ./modules/nixos/features/system/ipv6-disable.nix;
+          isoBuilder = ./modules/nixos/features/system/iso-builder.nix;
         };
 
         virtualisation = {
@@ -133,10 +137,10 @@
           podman = ./modules/nixos/features/virtualisation/podman.nix;
         };
 
-        console = ./modules/nixos/features/console.nix;
         fonts = ./modules/nixos/features/fonts.nix;
         networking = ./modules/nixos/features/networking.nix;
-        power-management = ./modules/nixos/features/power-management.nix;
+        performance = ./modules/nixos/features/performance.nix;
+        powerManagement = ./modules/nixos/features/power-management.nix;
         quietboot = ./modules/nixos/features/quietboot.nix;
         spellcheck = ./modules/nixos/features/spellcheck.nix;
         unfree = ./modules/nixos/features/unfree.nix;

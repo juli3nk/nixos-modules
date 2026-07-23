@@ -30,6 +30,13 @@ in
   };
 
   config = {
+    assertions = [
+      {
+        assertion = builtins.match ".*UTF-8" cfg.defaultLocale != null;
+        message = "Locale must be UTF-8";
+      }
+    ];
+
     # System default locale (LANG)
     i18n.defaultLocale = cfg.defaultLocale;
 
@@ -50,7 +57,7 @@ in
       LC_COLLATE = cfg.regionalLocale;
 
       # Character classification
-      LC_CTYPE = cfg.regionalLocale;
+      LC_CTYPE = cfg.defaultLocale;
 
       # Messages stay in defaultLocale (intentional)
       # LC_MESSAGES = cfg.defaultLocale;

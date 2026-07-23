@@ -3,11 +3,11 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.myModules.nixos.features.security.pkiCertificates;
+  cfg = config.myModules.nixos.features.security.certificates;
 in
 {
-  options.myModules.nixos.features.security.pkiCertificates = {
-    enable = lib.mkEnableOption "custom PKI certificates";
+  options.myModules.nixos.features.security.certificates = {
+    enable = lib.mkEnableOption "custom certificates";
 
     certificateFiles = lib.mkOption {
       type = lib.types.listOf lib.types.path;
@@ -60,16 +60,20 @@ in
 
     # Verification script (optional)
     system.activationScripts.verifyCertificates = lib.mkIf cfg.verifyOnBuild ''
-      echo "🔐 Verifying custom PKI certificates..."
+      echo "[INFO] Verifying custom PKI certificates..."
 
       ${lib.concatMapStrings (file: ''
         if ! ${pkgs.openssl}/bin/openssl x509 -in ${file} -noout 2>/dev/null; then
-          echo "❌ Invalid certificate: ${file}"
+          echo "[ERROR] Invalid certificate: ${file}"
+          exit 1
+        fi
+        if ! ${pkgs.openssl}/bin/openssl x509 -in ${file} -checkend 0 -noout 2>/dev/null; then
+          echo "[ERROR] Expired certificate: ${file}"
           exit 1
         fi
       '') cfg.certificateFiles}
 
-      echo "✅ All certificates valid"
+      echo "[OK] All certificates valid"
     '';
 
     # Install OpenSSL tools

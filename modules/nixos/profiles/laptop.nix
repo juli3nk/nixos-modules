@@ -11,8 +11,7 @@
 
     ../features/ntp/chrony.nix
     ../features/security/baseline.nix
-    ../features/system/filesystem.nix
-    ../features/console.nix
+    ../features/system/filesystem-extra.nix
     ../features/fonts.nix
     ../features/networking.nix
     ../features/spellcheck.nix
@@ -84,9 +83,6 @@
   # Screen brightness
   # ========================================
 
-  # Light (backlight control, recommended)
-  programs.light.enable = true;
-
   # Illum (auto-adjustment daemon)
   services.illum.enable = true;
 
@@ -94,15 +90,9 @@
   # Laptop packages
   # ========================================
   environment.systemPackages = with pkgs; [
-    brightnessctl
-
-    # Battery
     acpi             # ACPI info (battery, temperature)
-
-    # Webcam
-    v4l-utils        # v4l2-ctl, qv4l2
-
-    # Monitoring
+    brightnessctl
     nvme-cli         # NVMe SSD health
+    v4l-utils        # webcam: v4l2-ctl, qv4l2
   ];
 }

@@ -2,12 +2,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.myModules.nixos.features.security.secrets;
+  cfg = config.myModules.nixos.features.desktop.secrets;
 in
 {
-  options.myModules.nixos.features.security.secrets = {
+  options.myModules.nixos.features.desktop.secrets = {
     enable = lib.mkEnableOption "secret management (keyring + polkit)";
-    
+
     polkitAgent = lib.mkOption {
       type = lib.types.enum [ "mate" "gnome" "kde" ];
       default = "mate";
@@ -27,9 +27,10 @@ in
     environment.systemPackages = with pkgs; [
       libsecret
       seahorse
-    ] ++ (if cfg.polkitAgent == "mate" then [ mate.mate-polkit ]
-         else if cfg.polkitAgent == "gnome" then [ polkit_gnome ]
-         else if cfg.polkitAgent == "kde" then [ libsForQt5.polkit-kde-agent ]
-         else []);
+    ] ++ {
+      mate = [ mate-polkit ];
+      gnome = [ polkit_gnome ];
+      kde = [ libsForQt5.polkit-kde-agent ];
+    }.${cfg.polkitAgent};
   };
 }

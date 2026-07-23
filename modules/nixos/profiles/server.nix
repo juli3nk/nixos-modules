@@ -6,10 +6,8 @@
     ./base.nix
 
     ../features/ntp/ntpd.nix
-    ../features/security/baseline.nix
     ../features/security/hardened.nix
-    ../features/system/filesystem.nix
-    ../features/console.nix
+    ../features/system/filesystem-extra.nix
     ../features/fonts.nix
     ../features/networking.nix
 

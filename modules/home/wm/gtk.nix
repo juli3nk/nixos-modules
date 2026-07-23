@@ -25,8 +25,7 @@
     enable = true;
 
     font = {
-      name = "Roboto";
-      package = pkgs.roboto;
+      name = "Noto Sans";
     };
 
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";

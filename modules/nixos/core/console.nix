@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.myModules.nixos.features.console;
+  cfg = config.myModules.nixos.core.console;
 
   # Détection automatique LUKS
   hasLuks = builtins.length (builtins.attrNames config.boot.initrd.luks.devices) > 0;
@@ -10,7 +10,7 @@ let
   needsEarlySetup = hasLuks && (cfg.keyMap != "us");
 in
 {
-  options.myModules.nixos.features.console = {
+  options.myModules.nixos.core.console = {
     enable = lib.mkEnableOption "console customization";
 
     profile = lib.mkOption {
@@ -41,7 +41,7 @@ in
     };
 
     packages = lib.mkOption {
-      type = lib.types.listOf lib.types.package;  # Fix: package, pas packages
+      type = lib.types.listOf lib.types.package;
       default = [];
       example = lib.literalExpression "[ pkgs.powerline-fonts ]";
       description = ''
@@ -89,18 +89,18 @@ in
     # Profil: standard (1080p)
     (lib.mkIf (cfg.profile == "standard") {
       console = {
-        keyMap = lib.mkDefault "us";
-        font = lib.mkDefault "ter-v16n";
-        earlySetup = lib.mkDefault false;
+        keyMap = "us";
+        font = "ter-v16n";
+        earlySetup = false;
       };
     })
 
     # Profil: hidpi (4K)
     (lib.mkIf (cfg.profile == "hidpi") {
       console = {
-        keyMap = lib.mkDefault "us";
-        font = lib.mkDefault "ter-v32n";
-        earlySetup = lib.mkDefault true;
+        keyMap = "us";
+        font = "ter-v32n";
+        earlySetup = true;
       };
     })
 

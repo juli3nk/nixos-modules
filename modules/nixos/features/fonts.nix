@@ -23,6 +23,9 @@
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono
       nerd-fonts.iosevka
+
+      inter
+      cantarell-fonts
     ];
 
     # user defined fonts

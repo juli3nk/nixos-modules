@@ -6,9 +6,9 @@
 
   # Non-intrusive hardening
   boot.kernel.sysctl = {
-    "kernel.dmesg_restrict" = 1;  # Safe everywhere
-  };
+    "kernel.dmesg_restrict" = 1;
 
-  # Base services
-  security.polkit.enable = true;
+    "fs.protected_fifos" = 2;
+    "fs.protected_regular" = 2;
+  };
 }

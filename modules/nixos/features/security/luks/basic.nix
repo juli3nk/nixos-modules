@@ -65,9 +65,6 @@ in
       keyFileSize = lib.mkIf (deviceCfg.keyFile != null) 4096;
       keyFileOffset = lib.mkIf (deviceCfg.keyFile != null) 0;
 
-      # Fallback to password
-      fallbackToPassword = deviceCfg.fallbackToPassword;
-
       # SSD optimization
       allowDiscards = deviceCfg.allowDiscards;
 
@@ -92,11 +89,5 @@ in
       "sha256"
       "sha512"
     ];
-
-    # Security: Clear terminal before asking password
-    boot.initrd.preLVMCommands = lib.mkBefore ''
-      clear
-      echo "🔐 Unlocking encrypted root partition..."
-    '';
   };
 }

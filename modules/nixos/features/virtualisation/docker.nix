@@ -28,7 +28,7 @@ in
     # Basic Docker configuration
     {
       virtualisation.docker = {
-        enable = cfg.enable;
+        enable = true;
         # enableOnBoot = lib.mkDefault true;
         liveRestore = lib.mkDefault false;
         extraOptions = "--iptables=true --experimental";

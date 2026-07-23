@@ -71,5 +71,9 @@ in
 
     # Clean /tmp on boot
     boot.tmp.cleanOnBoot = cfg.cleanTmpOnBoot;
+
+    services.journald.extraConfig = ''
+      SystemMaxUse=1G
+    '';
   };
 }

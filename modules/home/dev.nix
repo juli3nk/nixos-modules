@@ -5,7 +5,6 @@
     # Development and Build Tools
     gnumake          # GNU Make build automation
     direnv           # Environment switcher for shell
-    nodePackages.node2nix # Generate Nix expressions from NPM packages
     delta            # Viewer for git and diff output
     ast-grep         # Fast code searching and rewriting tool
     yq-go            # YAML processor

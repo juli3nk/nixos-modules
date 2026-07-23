@@ -1,22 +1,41 @@
+# Secure Boot natif via systemd-boot + bootspec
+# Utilise exclusivement des clés personnalisées (pas de clés Microsoft)
 { config, lib, pkgs, ... }:
 
+let
+  cfg = config.myModules.nixos.features.security.secureBoot;
+in
 {
-  boot = {
-    bootspec = {
-      enable = true;
-      enableValidation = true;
+  options.myModules.nixos.features.security.secureBoot = {
+    enable = lib.mkEnableOption "Secure Boot natif (systemd-boot + bootspec)";
+
+    enforceInBootloader = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Active réellement Secure Boot dans systemd-boot.
+        Mettre à `false` pour seulement installer sbctl et préparer
+        les clés, sans activer l'enforcement (utile en phase de test).
+      '';
     };
-    lanzaboote = {
-      enable = true;
-      pkiBundle = "/etc/secureboot";
-    };
-    loader.systemd-boot.enable = lib.mkForce false;
-    loader.grub.enable = lib.mkForce false;
   };
 
-  environment.systemPackages = with pkgs; [
-    sbctl
-  ];
+  config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = config.boot.loader.systemd-boot.enable;
+        message = ''
+          myModules.nixos.features.security.secureBoot nécessite
+          boot.loader.systemd-boot.enable = true (voir core/bootloader.nix).
+        '';
+      }
+    ];
 
-  environment.persistence."/nix/state".directories = [ config.boot.lanzaboote.pkiBundle ];
+    boot.bootspec = {
+      enable = true;
+      enableValidation = cfg.enforceInBootloader;
+    };
+
+    environment.systemPackages = [ pkgs.sbctl ];
+  };
 }

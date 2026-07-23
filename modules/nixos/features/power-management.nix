@@ -432,17 +432,16 @@ in
         HandlePowerKeyLongPress = "poweroff";
       };
 
-      systemd.sleep.extraConfig = ''
-        HibernateDelaySec=${cfg.hibernateDelay}
-        HibernateMode=platform
-        SuspendState=mem
-      '';
+      systemd.sleep.settings.Sleep = {
+        HibernateDelaySec = "${cfg.hibernateDelay}";
+        HibernateMode = "platform";
+        SuspendState = "mem";
+      };
 
       # Filesystem optimizations
       fileSystems."/".options = [
         "noatime"
         "nodiratime"
-        "discard"
       ];
 
       powerManagement = {

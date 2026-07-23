@@ -4,6 +4,8 @@
 {
   imports = [
     ../core/bootloader.nix
+    ../core/console.nix
+    ../core/filesystem.nix
     ../core/locale.nix
     ../core/maintenance.nix
     ../core/nix.nix

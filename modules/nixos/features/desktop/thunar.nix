@@ -19,26 +19,18 @@ in
       default = true;
       description = "Enable thumbnail generation";
     };
-
-    enableAutoMount = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable automatic device mounting";
-    };
   };
 
   config = lib.mkIf cfg.enable {
     programs.thunar = {
       enable = true;
-      plugins = lib.mkIf cfg.enablePlugins (with pkgs.xfce; [
+      plugins = lib.mkIf cfg.enablePlugins (with pkgs; [
         thunar-archive-plugin
         thunar-media-tags-plugin
         thunar-volman
       ]);
     };
 
-    services.gvfs.enable = cfg.enableAutoMount;
-    services.udisks2.enable = cfg.enableAutoMount;
     services.tumbler.enable = cfg.enableThumbnails;
 
     # Archive manager for thunar-archive-plugin

@@ -1,4 +1,4 @@
-# UEFI bootloader configuration
+# UEFI bootloader configuration (systemd-boot)
 { config, lib, ... }:
 
 let
@@ -7,20 +7,20 @@ in
 {
   options.myModules.nixos.core.bootloader = {
     configurationLimit = lib.mkOption {
-      type = lib.types.int;
+      type = lib.types.ints.positive;
       default = 10;
       description = ''
-        Maximum number of boot entries to keep.
-        Prevents EFI variable overflow.
+        Nombre maximum d'entrées de boot à conserver.
+        Empêche le débordement des variables EFI (EFI variable overflow).
       '';
     };
 
     timeout = lib.mkOption {
-      type = lib.types.nullOr lib.types.int;
+      type = lib.types.nullOr lib.types.ints.unsigned;
       default = 3;
       description = ''
-        Boot menu timeout in seconds.
-        null = infinite, 0 = immediate boot
+        Délai (en secondes) avant le boot automatique.
+        `null` = attente infinie, `0` = boot immédiat.
       '';
     };
 
@@ -28,8 +28,8 @@ in
       type = lib.types.bool;
       default = true;
       description = ''
-        Ignore non-critical EFI errors.
-        Recommended with systemd 257.x to avoid crashes.
+        Ignore les erreurs EFI non critiques.
+        Recommandé avec systemd 257.x pour éviter les crashs de systemd-boot.
       '';
     };
 
@@ -37,22 +37,23 @@ in
       type = lib.types.bool;
       default = true;
       description = ''
-        Allow NixOS to modify EFI variables.
-        Set to false if experiencing systemd-boot crashes.
+        Autorise NixOS à modifier les variables EFI (NVRAM).
+        À désactiver si systemd-boot crash à l'installation/mise à jour.
       '';
     };
 
     efiMountPoint = lib.mkOption {
-      type = lib.types.str;
+      type = lib.types.path;
       default = "/boot";
       description = ''
-        EFI system partition mount point.
+        Point de montage de la partition système EFI (ESP).
       '';
     };
   };
 
   config = {
-    # Disable GRUB (enabled by default in NixOS)
+    # GRUB est activé par défaut dans NixOS : on le désactive explicitement
+    # pour garantir que systemd-boot est le seul bootloader actif.
     boot.loader.grub.enable = lib.mkForce false;
 
     boot.loader = {
