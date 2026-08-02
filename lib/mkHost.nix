@@ -77,8 +77,8 @@ in
       }
     ]
   
-    # Optionnal: sops-nix
-    ++ lib.optional hasSops [
+    # Optional: sops-nix
+    ++ lib.optionals hasSops [
       inputs.sops-nix.nixosModules.sops
     ]
 
