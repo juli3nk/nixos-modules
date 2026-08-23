@@ -10,8 +10,6 @@
 
     fuzzel
 
-    waybar       # the status bar
-
     wf-recorder  # screen recording
     grim         # taking screenshots
     slurp        # selecting a region to screenshot
