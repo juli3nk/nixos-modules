@@ -26,10 +26,12 @@
         audio = ./modules/home/apps/audio.nix;
         browserChromium = ./modules/home/apps/browser-chromium.nix;
         browserFirefox = ./modules/home/apps/browser-firefox.nix;
+        foot = ./modules/home/apps/foot.nix;
         images = ./modules/home/apps/images.nix;
         kitty = ./modules/home/apps/kitty.nix;
         kodi = ./modules/home/apps/kodi.nix;
         office = ./modules/home/apps/office.nix;
+        opencode = ./modules/home/apps/opencode.nix;
         passwordManager = ./modules/home/apps/password-manager.nix;
         proton = ./modules/home/apps/proton.nix;
         rustdesk = ./modules/home/apps/rustdesk.nix;
