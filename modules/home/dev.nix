@@ -23,7 +23,8 @@
     rclone
     glow             # markdown previewer in terminal
   ] ++ (with pkgs-unstable; [
+    mise
     vscode
-    code-cursor
+    # code-cursor
   ]);
 }
