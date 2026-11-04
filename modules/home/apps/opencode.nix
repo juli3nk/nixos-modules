@@ -1,8 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   home.packages = with pkgs; [
     opencode
-    opencode-desktop
   ];
+  # ++ (with pkgs-unstable; [
+  #  opencode-desktop
+  # ]);
 }
